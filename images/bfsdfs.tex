@@ -1,0 +1,30 @@
+\documentclass{standalone}
+
+\usepackage[mathcal]{euler}
+\usepackage{amssymb}
+\let\emptyset\varnothing
+
+\begin{document}
+  \begin{minipage}{0.48\linewidth}
+      \begin{itemize}\setlength{\itemsep}{-4pt}
+      \item \textbf{BFS}: Use a queue $Q$.
+      \item[] \quad $Q \gets (x)$
+      \item[] \quad while $Q \neq \emptyset$:
+      \item[] \quad \quad $y \gets Q$.pop()
+      \item[] \quad \quad visit($y$)
+      \item[] \quad \quad $Q$.push($y$.next)
+      \end{itemize}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\linewidth}
+      \begin{itemize}\setlength{\itemsep}{-4pt}
+      \item \textbf{DFS}: Use a stack $S$.
+      \item[] \quad $S \gets (x)$
+      \item[] \quad while $S \neq \emptyset$:
+      \item[] \quad \quad $y \gets S$.pop()
+      \item[] \quad \quad visit($y$)
+      \item[] \quad \quad $S$.push($y$.next)
+      \end{itemize}
+  \end{minipage}
+
+\end{document}
