@@ -1,0 +1,21 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx,stackengine,lmodern}
+\usepackage[euler-digits]{eulervm}
+\usepackage{amssymb}
+\let\emptyset\varnothing
+\usepackage[margin=.5cm]{geometry}
+
+\thispagestyle{empty}
+\begin{document}
+\noindent
+\stackinset{c}{}{t}{220pt}{\parbox{.4\textwidth}{\LARGE\centering %
+      \begin{itemize}\setlength{\itemsep}{-4pt}
+      \item \textbf{BFS}: Use a queue $Q$.
+      \item[] \quad $Q \gets (x)$
+      \item[] \quad while $Q \neq \emptyset$:
+      \item[] \quad \quad $y \gets Q$.pop()
+      \item[] \quad \quad visit($y$)
+      \item[] \quad \quad $Q$.push($y$.next)
+      \end{itemize}
+  }}{\includegraphics[width=\textwidth]{tshirt}}
+\end{document}
