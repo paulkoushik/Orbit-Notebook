@@ -220,30 +220,38 @@ parabolicComplement:= function(W, J)
     return gens;
 end;
 
-byCyclicShift:= function(w, s)
-    local y;
-    y:= w^s;
-    if coxeterLength(W, y) = coxeterLength(W, w) then
-        return y;
-    fi;
-    return w;
+minConjugates := function(W, x)
+    local   list,  lx,  i,  S,  y,  s,  z,  lz;
+    list:= [x];  lx := coxeterLength(W, x);
+    i := 0;  S := [1..Data(W).rank];
+    while i < Length(list) do
+        i := i+1;
+        y := list[i];
+        for s in S do
+            z := y^W.(s);  lz:= coxeterLength(W, z);
+            if lz = lx then
+                if not z in list then  Add(list, z);  fi;
+            elif lz < lx then
+                list := [z];  lx := lz;  i := 0;  break;
+            fi;
+        od;
+    od;
+    return list;
 end;
 
-onInvolutions := function(x, s)
-    if x * s = s * x then return OnRight(x, s); fi;
-    return OnPoints(x, s);
+coxeterMinRep:= function(W, w)
+    local   v,  K,  sh,  j;
+    v := minConjugates(W, w)[1];
+    K := Set(coxeterWord(W, v));
+    sh:= shape_with_transversal(W, K);
+    j:= PositionMinimum(sh.list);
+    return Minimum(minConjugates(W, v^sh.reps[j]));
 end;
 
-onInvolutionClasses:= function(x, a)
-    local y;
-    y:= Representative(x);
-    if y^a <> y then return x; fi;
-    return OnRight(y, a)^ActingDomain(x);
+coxeterConjugacyClasses:= function(W)
+    local   onMinReps;
+    onMinReps := function(x, a)
+        return coxeterMinRep(W, x * a);
+    end;
+    return orbit(reflections(W), (), onMinReps);
 end;
-
-involutionClasses := function(group)
-    local gens;
-    gens:= GeneratorsOfGroup(group);
-    return orbit(orbits(gens, gens, OnPoints), Identity(group)^group, onInvolutionClasses);
-end;
-
