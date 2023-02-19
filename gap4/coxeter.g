@@ -55,13 +55,13 @@ end;
 DeclareAttribute("Data", IsPermGroup);
 
 coxeterGroup := function(C)
-    local  one,  mats,  S,  s,  phi,  data,  G;
+    local  one,  mats,  roots,  S,  s,  phi,  data,  G;
     one := C^0;  mats := [];  S := [1..Length(C)];
     for s in S do
         mats[s] := C^0;  mats[s]{S}[s] := one[s] - C[s];
     od;
     roots := orbits_with_words_and_edges(mats, C^0, onRoots);
-    data := rec(mats := mats,  roots:= roots, rank := Length(S));
+    data := rec(mats := mats, roots := roots, rank := Length(S));
     data.N := Length(roots.list);
     data.phi := Concatenation(roots.list, -roots.list);
     data.perms := List(mats, m -> Permutation(m, data.phi, OnRight));
@@ -78,20 +78,20 @@ reflections := function(W)
     return List(Data(W).roots.words, reflection_from_word);
 end;
 
-coxeterlength:= function(W, w)
+coxeterLength := function(W, w)
     return Number([1..Data(W).N], i-> i^w > Data(W).N);
 end;
 
-permCoxeterWord:= function(W, word)
+permCoxeterWord := function(W, word)
     if word = [] then return (); fi;
     return Product(Data(W).perms{word});
 end;
 
-isLeftDescent:= function(W, w, s)
+isLeftDescent := function(W, w, s)
     return s^w > Data(W).N;
 end;
 
-coxeterWord:= function(W, w)
+coxeterWord := function(W, w)
     local word, a;
     word:= [];
     while w <> () do
@@ -180,9 +180,26 @@ shape_with_edges := function(W, J)
     return orbit_with_edges([1..Data(W).rank], J, onParabolics);
 end;
 
+shape_with_transversal := function(W, J)
+    local   S,  list,  reps,  i,  K,  s,  a,  L;
+    S := [1..Data(W).rank];  list:= [J];  reps:= [()];  i:= 0;
+    while i < Length(list) do
+        i := i+1;  K := list[i];
+        for s in Difference(S, K) do
+            a := longestCosetElement(W, K, tackOn(K, s));
+            L := OnSets(K, a);
+            if not L in list then
+                Add(list, L);
+                Add(reps, reps[i] * a);
+            fi;
+        od;
+    od;
+    return rec(list:= list, reps:= reps);
+end;
+
 parabolicComplement:= function(W, J)
-    local   S,  list,  trans,  i,  gens,  K,  s,  a,  L,  j;
-    S := [1..Data(W).rank];  list := [J];  trans := [()];
+    local   S,  list,  reps,  i,  gens,  K,  s,  a,  L,  j;
+    S := [1..Data(W).rank];  list := [J];  reps := [()];
     gens := rec(ears := [], eyes := []);
     i := 0;
     while i < Length(list) do
@@ -192,11 +209,11 @@ parabolicComplement:= function(W, J)
             L := OnSets(K, a);  j := Position(list, L);
             if j = fail then
                 Add(list, L);
-                Add(trans, trans[i] * a);
+                Add(reps, reps[i] * a);
             elif j = i then
-                AddSet(gens.ears, trans[i] * a * trans[i]^-1);
+                AddSet(gens.ears, reps[i] * a * reps[i]^-1);
             else
-                AddSet(gens.eyes, trans[i] * a * trans[j]^-1);
+                AddSet(gens.eyes, reps[i] * a * reps[j]^-1);
             fi;
         od;
     od;
@@ -206,7 +223,7 @@ end;
 byCyclicShift:= function(w, s)
     local y;
     y:= w^s;
-    if coxeterlength(W, y) = coxeterlength(W, w) then
+    if coxeterLength(W, y) = coxeterLength(W, w) then
         return y;
     fi;
     return w;
