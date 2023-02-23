@@ -55,13 +55,13 @@ t_indent := 0;  t_nl := false;
 t_print := function(x)
     local   c;
     if t_nl then
-        Print(RepeatedString(" ", t_indent));  t_nl:= false;
+        Print(RepeatedString(" ", t_indent));  t_nl := false;
     fi;
     Print("-", x.id);
     if Length(x.next) = 0 then
-        Print("\n");  t_nl:= true;
+        Print("\n");  t_nl := true;
     fi;
-    t_indent:= t_indent + 2;
+    t_indent := t_indent + 2;
     for c in x.next do  t_print(c);  od;
-    t_indent:= t_indent - 2;
+    t_indent := t_indent - 2;
 end;

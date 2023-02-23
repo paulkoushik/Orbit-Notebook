@@ -101,32 +101,32 @@ end;
 
 coxeterWord := function(W, w)
     local word, a;
-    word:= [];
+    word := [];
     while w <> () do
-        a:= First([1..Data(W).rank], s-> isLeftDescent(W, w, s));
-        Add(word, a); w:= Data(W).perms[a] * w;
+        a := First([1..Data(W).rank], s-> isLeftDescent(W, w, s));
+        Add(word, a);  w := Data(W).perms[a] * w;
     od;
     return word;
 end;
 
-reducedWord:= function(W, word)
+reducedWord := function(W, word)
     return coxeterWord(W, permCoxeterWord(W, word));
 end;
 
-longestElement:= function(W, J)
+longestElement := function(W, J)
     local  wJ,  s;
-    wJ:= ();
+    wJ := ();
     while true do
-        s:= First(J, s-> not isLeftDescent(W, wJ, s));
+        s := First(J, s-> not isLeftDescent(W, wJ, s));
         if s = fail then  return wJ;  fi;
-        wJ:= W.(s) * wJ;
+        wJ := W.(s) * wJ;
     od;
 end;
 
-prefixes:= function(W, w)
+prefixes := function(W, w)
     local onRightDescents;
 
-    onRightDescents:= function(w, s)
+    onRightDescents := function(w, s)
         if isLeftDescent(W, w^-1, s) then
             return w * W.(s);
         else
@@ -137,10 +137,10 @@ prefixes:= function(W, w)
     return orbit([1..Data(W).rank], w, onRightDescents);
 end;
 
-prefixes_with_edges:= function(W, w)
+prefixes_with_edges := function(W, w)
     local onRightDescents;
 
-    onRightDescents:= function(w, s)
+    onRightDescents := function(w, s)
         if isLeftDescent(W, w^-1, s) then
             return w * W.(s);
         else
@@ -151,7 +151,7 @@ prefixes_with_edges:= function(W, w)
     return orbit_with_edges([1..Data(W).rank], w, onRightDescents);
 end;
 
-longestCosetElement:= function(W, J, L)
+longestCosetElement := function(W, J, L)
     return longestElement(W, J) * longestElement(W, L);
 end;
 
@@ -167,7 +167,7 @@ shape := function(W, J)
     return orbit([1..Data(W).rank], J, onParabolics);
 end;
 
-takeAway:= function(x, s)
+takeAway := function(x, s)
     return Difference(x, [s]);
 end;
 
@@ -190,7 +190,7 @@ end;
 
 shape_with_transversal := function(W, J)
     local   S,  list,  reps,  i,  K,  s,  a,  L;
-    S := [1..Data(W).rank];  list:= [J];  reps:= [()];  i:= 0;
+    S := [1..Data(W).rank];  list := [J];  reps := [()];  i := 0;
     while i < Length(list) do
         i := i+1;  K := list[i];
         for s in Difference(S, K) do
@@ -202,10 +202,10 @@ shape_with_transversal := function(W, J)
             fi;
         od;
     od;
-    return rec(list:= list, reps:= reps);
+    return rec(list := list, reps := reps);
 end;
 
-parabolicComplement:= function(W, J)
+parabolicComplement := function(W, J)
     local   S,  list,  reps,  i,  gens,  K,  s,  a,  L,  j;
     S := [1..Data(W).rank];  list := [J];  reps := [()];
     gens := rec(ears := [], eyes := []);
@@ -230,13 +230,13 @@ end;
 
 minConjugates := function(W, x)
     local   list,  lx,  i,  S,  y,  s,  z,  lz;
-    list:= [x];  lx := coxeterLength(W, x);
+    list := [x];  lx := coxeterLength(W, x);
     i := 0;  S := [1..Data(W).rank];
     while i < Length(list) do
         i := i+1;
         y := list[i];
         for s in S do
-            z := y^W.(s);  lz:= coxeterLength(W, z);
+            z := y^W.(s);  lz := coxeterLength(W, z);
             if lz = lx then
                 if not z in list then  Add(list, z);  fi;
             elif lz < lx then
@@ -247,16 +247,16 @@ minConjugates := function(W, x)
     return list;
 end;
 
-coxeterMinRep:= function(W, w)
+coxeterMinRep := function(W, w)
     local   v,  K,  sh,  j;
     v := minConjugates(W, w)[1];
     K := Set(coxeterWord(W, v));
-    sh:= shape_with_transversal(W, K);
-    j:= PositionMinimum(sh.list);
+    sh := shape_with_transversal(W, K);
+    j := PositionMinimum(sh.list);
     return Minimum(minConjugates(W, v^sh.reps[j]));
 end;
 
-coxeterConjugacyClasses:= function(W)
+coxeterConjugacyClasses := function(W)
     local   onMinReps;
     onMinReps := function(x, a)
         return coxeterMinRep(W, x * a);

@@ -22,7 +22,7 @@ group_plus_one := function(group, a)
     return Group(Concatenation(GeneratorsOfGroup(group), [a]));
 end;
 
-orbit_sims:= function(aaa, x, under)
+orbit_sims := function(aaa, x, under)
     local   list,  reps,  stab,  i,  k,  l,  z;
     list := [x];  reps := [()];  stab := Group([], ());  i := 0;
     while i < Length(list) do
@@ -33,7 +33,7 @@ orbit_sims:= function(aaa, x, under)
                 Add(list, z);
                 Add(reps, reps[i] * aaa[k]);
             else   # x^(reps[i] * a) = x^reps[l]
-                stab:= group_plus_one(stab, reps[i] * aaa[k] / reps[l]);
+                stab := group_plus_one(stab, reps[i] * aaa[k] / reps[l]);
             fi;
         od;
     od;
@@ -44,7 +44,7 @@ InstallMethod(Sims, "for perm groups", true, [IsPermGroup], 0, function(group)
     return orbit_sims(GeneratorsOfGroup(group), LargestMovedPoint(group), OnPoints);
 end);
 
-size_sims:= function(group)
+size_sims := function(group)
     if IsTrivial(group) then  return 1;  fi;
     return Length(Sims(group).list) * size_sims(Sims(group).stab);
 end;

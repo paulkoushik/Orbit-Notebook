@@ -8,14 +8,14 @@ VariantsRelations := function(genrel)
 
     inv := word -> -Reversed(word);
 
-    abs:= function(s)
+    abs := function(s)
         if s < 0 then  return genrel.invr[-s];  else  return s;  fi;
     end;
 
     variants := List(genrel.gens, x -> []);
     for list in genrel.rels do
-        relator:=  Concatenation(list[1], inv(list[2]));
-        l:= Length(relator);
+        relator :=  Concatenation(list[1], inv(list[2]));
+        l := Length(relator);
         for i in [1..l] do
             s := relator[i];    #  u s v = 1, s = (v u)^{-1},  s^-1 = v u
             word := Concatenation(relator{[i+1..l]}, relator{[1..i-1]});

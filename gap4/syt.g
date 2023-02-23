@@ -114,7 +114,7 @@ end;
 ##  normal case action
 remove1Hook2 := function(lambda, k)
     local   new;
-    new:= ShallowCopy(lambda);
+    new := ShallowCopy(lambda);
     new[k] := new[k] - 1;
     return new;
 end;
@@ -162,7 +162,7 @@ youngLattice := function(lambda)
             od;
         fi;
     od;
-    return rec(list:= list, next:= next);
+    return rec(list := list, next := next);
 end;
 
 ##  DFS with a visitor that makes shortest paths if unknown.
@@ -186,13 +186,13 @@ standardYTs := function(lambda)
 end;
 
 ##  tableau from path
-tableau_path:= function(path)
+tableau_path := function(path)
     local   tab,  i,  r,  c;
-    tab:= [];
+    tab := [];
     for i in [1..Length(path)] do
-        r:= path[i][1];  c:= path[i][2];
-        if c = 1 then  tab[r]:= [];  fi;
-        tab[r][c]:= i;
+        r := path[i][1];  c := path[i][2];
+        if c = 1 then  tab[r] := [];  fi;
+        tab[r][c] := i;
     od;
     return tab;
 end;
