@@ -1,3 +1,11 @@
+#############################################################################
+##
+#A  sims.g                                                               GAP4
+#B    by Götz Pfeiffer <goetz.pfeiffer@nuigalway.ie>
+##
+#C  A simple minded implementation of the Schreier-Sims algorithm
+##
+
 DeclareAttribute("Sims", IsPermGroup);
 
 is_element_sims := function(group, a)

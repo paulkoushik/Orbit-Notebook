@@ -1,3 +1,11 @@
+#############################################################################
+##
+#A  tree.g                                                               GAP4
+#B    by Götz Pfeiffer <goetz.pfeiffer@nuigalway.ie>
+##
+#C  A tree, together with BFS and DFS
+##
+
 ##  a small tree,  visited by BFS and DFS
 ##
 ##  1 -- 3 -- 4 -- 5 -- 6 -- 7
@@ -8,7 +16,7 @@
 ##
 
 ##  the nodes
-nodes:= List([1..7], i-> rec(id:= i, next:= []));
+nodes := List([1..7], i-> rec(id := i, next := []));
 
 ##  the edges
 parent := [3,4,4,5,6,0,6];

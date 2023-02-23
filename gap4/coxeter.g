@@ -1,3 +1,11 @@
+#############################################################################
+##
+#A  coxeter.g                                                            GAP4
+#B    by Götz Pfeiffer <goetz.pfeiffer@nuigalway.ie>
+##
+#C  Applications of orbit algorithms to Coxeter groups
+##
+
 Read("orbits.g");
 
 coxeterGraph := function(series, rank)

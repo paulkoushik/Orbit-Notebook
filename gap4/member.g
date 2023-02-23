@@ -1,3 +1,11 @@
+#############################################################################
+##
+#A  member.g                                                             GAP4
+#B    by Götz Pfeiffer <goetz.pfeiffer@nuigalway.ie>
+##
+#C  Group membership test, along a naive stablizer chain
+##
+
 Read("orbits.g");
 
 isGroupElement:= function(group, a)

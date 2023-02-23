@@ -1,12 +1,13 @@
 #############################################################################
 ##
-##  orbits.g                     GAP4             goetz.pfeiffer@nuigalway.ie
+#A  orbits.g                                                             GAP4
+#B    by Götz Pfeiffer <goetz.pfeiffer@nuigalway.ie>
 ##
-##  Examples of Orbit Algorithms and Applipcations.
+#C  Examples of Orbit Algorithms and Applipcations.
 ##
 
-##  lists of permutations
-transpositions:= n -> List([1..n-1], j-> (j,j+1));
+##  a list of transpositions
+transpositions := n -> List([1..n-1], j-> (j,j+1));
 
 ##  actions
 onPoints:= function(x, a)  return x^a;  end;

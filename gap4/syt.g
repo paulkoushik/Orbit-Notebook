@@ -1,9 +1,9 @@
 #############################################################################
 ##
-##  syt.g                       GAP4              goetz.pfeiffer@nuigalway.ie
+#A  syt.g                                                                GAP4
+#B    by Götz Pfeiffer <goetz.pfeiffer@nuigalway.ie>
 ##
-##  Standard Young Tableaus and related objects as orbits under suitable
-##  actions
+#C  Partitions and Standard Young Tableaus as orbits under suitable actions
 ##
 
 #############################################################################

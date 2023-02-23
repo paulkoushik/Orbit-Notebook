@@ -1,4 +1,11 @@
-#Read("orbits.g");
+#############################################################################
+##
+#A  specht.g                                                             GAP4
+#B    by Götz Pfeiffer <goetz.pfeiffer@nuigalway.ie>
+##
+#C  A Specht module example
+##
+
 Read("coxeter.g");
 
 N:= 5;
