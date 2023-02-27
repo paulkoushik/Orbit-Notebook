@@ -6,7 +6,7 @@
 #C  Applications of orbit algorithms to Coxeter groups
 ##
 
-# Read("orbits.g");
+Read("orbits.g");
 
 coxeterGraph := function(series, rank)
     local edges;
