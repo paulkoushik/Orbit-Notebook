@@ -19,7 +19,7 @@ end;
 
 group_plus_one := function(group, a)
     if is_element_sims(group, a) then  return group;  fi;
-    return Group(Concatenation(GeneratorsOfGroup(group), [a]));
+    return GroupWithGenerators(Concatenation(GeneratorsOfGroup(group), [a]));
 end;
 
 orbit_sims := function(aaa, x, under)
@@ -48,3 +48,9 @@ size_sims := function(group)
     if IsTrivial(group) then  return 1;  fi;
     return Length(Sims(group).list) * size_sims(Sims(group).stab);
 end;
+
+random_sims := function(group)
+    if IsTrivial(group) then  return ();  fi;
+    return random_sims(Sims(group).stab) * Random(Sims(group).reps);
+end;
+
