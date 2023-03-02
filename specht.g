@@ -7,6 +7,7 @@
 ##
 
 Read("coxeter.g");
+Read("linear.g");
 
 N := 5;
 gens := transpositions(5);
@@ -47,25 +48,50 @@ for i in [1..Length(tabs.list)] do
     vec[Position(words, wordTab(tabs.list[i]))] := SignPerm(tabs.reps[i]);
 od;
 
-# linear orbit
-spin :=  function(aaa, x, under)
-    local list,  a,  y,  z;
-    list := [x];
-    for y in list do
-        for a in aaa do
-            z := under(y, a);
-            if not z in VectorSpace(Rationals, list) then
-                Add(list, z);
-            fi;
-        od;
-    od;
-    return list;
+# how to covert a vector into a list of (pos, val)-pairs
+sparseVec:= function(vec)
+    local   poss;
+    poss:= PositionsProperty(vec, v -> v <> Zero(v));
+    return rec(pos := poss,  val:= vec{poss});
 end;
 
-# specht module basis
-vvv := spin(perms, vec, Permuted);
+# how to convert (pos, val) into a vector of length l
+denseVec:= function(l, v)
+    local   vec;
+    vec := 0*[1..l];  vec{v.pos} := v.val;
+    return vec;
+end;
+
+
+# linear orbit with matrices (cf. orbit_with_images)
+spinning_with_images :=  function(aaa, x, under)
+    local   list,  images,  i,  y,  k,  a,  z,  v;
+    list := [x];  images := List(aaa, x-> []);  i := 0;
+    while i < Length(list) do
+        i := i+1;
+        y := list[i];
+        for k in [1..Length(aaa)] do
+            a := aaa[k];
+            z := under(y, a);
+            v := SolutionMat(list, z);
+            if v = fail then
+                Add(list, z);
+                v := rec(pos := [Length(list)], val := [1]);
+            else
+                v := sparseVec(v);
+            fi;
+            images[k][i]:= v;
+        od;
+    od;
+    return rec(list := list, images := images);
+end;
+
+mat_list:= function(list)
+    return List(list, v -> denseVec(Length(list), v));
+end;
 
 ## representing matrices
-mats := List(perms, p -> List(vvv, v-> SolutionMat(vvv, Permuted(v, p))));
+vvv:= spinning_with_images(perms, vec, Permuted);
+mats := List(vvv.images, mat_list);
 
 ## character ...
