@@ -68,11 +68,9 @@ spinning_with_images :=  function(aaa, x, under)
     local   list,  images,  i,  y,  k,  a,  z,  v;
     list := [x];  images := List(aaa, x-> []);  i := 0;
     while i < Length(list) do
-        i := i+1;
-        y := list[i];
+        i := i+1;  y := list[i];
         for k in [1..Length(aaa)] do
-            a := aaa[k];
-            z := under(y, a);
+            a := aaa[k];  z := under(y, a);
             v := SolutionMat(list, z);
             if v = fail then
                 Add(list, z);
@@ -94,4 +92,4 @@ end;
 vvv:= spinning_with_images(perms, vec, Permuted);
 mats := List(vvv.images, mat_list);
 
-## character ...
+## Exercise: compute the character ...
