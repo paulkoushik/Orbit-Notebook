@@ -53,4 +53,3 @@ random_sims := function(group)
     if IsTrivial(group) then  return ();  fi;
     return random_sims(Sims(group).stab) * Random(Sims(group).reps);
 end;
-
