@@ -48,7 +48,7 @@ for i in [1..Length(tabs.list)] do
     vec[Position(words, wordTab(tabs.list[i]))] := SignPerm(tabs.reps[i]);
 od;
 
-# how to covert a vector into a list of (pos, val)-pairs
+# how to convert a vector into a list of (pos, val)-pairs
 sparseVec:= function(vec)
     local   poss;
     poss:= PositionsProperty(vec, v -> v <> Zero(v));
