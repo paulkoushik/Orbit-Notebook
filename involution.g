@@ -3,6 +3,10 @@ onInvolutions := function(x, s)
     return OnPoints(x, s);
 end;
 
+involutions := function(W)
+    return orbit(GeneratorsOfGroup(W), Identity(W), onInvolutions);
+end;
+
 onInvolutionClasses := function(x, a)
     local y;
     y := Representative(x);
@@ -10,8 +14,6 @@ onInvolutionClasses := function(x, a)
     return OnRight(y, a)^ActingDomain(x);
 end;
 
-involutionClasses := function(group)
-    local gens;
-    gens := GeneratorsOfGroup(group);
-    return orbit(orbits(gens, gens, OnPoints), Identity(group)^group, onInvolutionClasses);
+involutionClasses := function(W)
+    return orbit(reflections(W), Identity(W)^W, onInvolutionClasses);
 end;
