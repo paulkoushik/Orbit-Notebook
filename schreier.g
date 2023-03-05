@@ -1,3 +1,6 @@
+Read("orbits.g");
+Read("specht.g");
+
 # use schreier generators as images
 orbit_with_schreier:= function(aaa, x, under)
     local   list,  reps,  i,  images,  y,  k,  a,  z,  l;
@@ -19,8 +22,8 @@ orbit_with_schreier:= function(aaa, x, under)
     return rec(list := list, images := images);
 end;
 
-swaps:= transpositions(4);
-os:= orbit_with_schreier(swaps, 4, OnPoints);
+gens:= transpositions(4);
+os:= orbit_with_schreier(gens, 4, OnPoints);
 mats:= List(os.images, mat_list);
 
 # need to be able to add and multiply 0 and perms
