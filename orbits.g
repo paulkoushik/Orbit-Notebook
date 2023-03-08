@@ -202,3 +202,5 @@ orbit_with_images := function(aaa, x, under)
     od;
     return rec(list := list, images := images);
 end;
+
+list_with_index := list -> List([1..Length(list)], i -> [i, list[i]]);
