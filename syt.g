@@ -30,8 +30,8 @@ newtonSum := function(l)
 end;
 
 ##  right handed versions:
-##    newtonDifR(newtonSum(list)) = list
-##    newtonSumR(newtonDif(list)) = list
+##    newtonDifR(newtonSumR(list)) = list
+##    newtonSumR(newtonDifR(list)) = list
 ##
 
 ## [l_1, l_2 ..  l_n] -> [l_2 - l_1 .. l_n - l_{n-1}, l_n]
